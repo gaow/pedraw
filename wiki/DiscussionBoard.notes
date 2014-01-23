@@ -1,0 +1,14 @@
+###
+#! Discussion
+###
+
+###
+# @@pedlib@@ features
+###
+#{ list
+# parse *.ped file, check/correct errors in data entry, fill in missingness, and retrieve family structure related information (Biao)
+# use matplotlib to plot pedigree structure with legends and marks, highlight gene flow, etc. (Hang)
+# query families/individuals based on retrieved ped information (Biao?)
+# calculate simple statistics, linkage/association analysis, etc. (Biao?)
+# a report file based on all above can be automatically generated (?)
+#}
