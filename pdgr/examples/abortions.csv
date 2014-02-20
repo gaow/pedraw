@@ -1,0 +1,5 @@
+Id |Name     |Sex   |DoB       |DoD       |Mother|Proband|Condition|Type
+A0 |Ann      |female|1970.06.15|          |      |       |affected |
+B1 |#abortion|female|1990.03.01|          |A0    |       |affected |
+B2 |#abortion|male  |2000.10.10|          |A0    |       |         |sab
+B3 |John     |male  |2002.12.01|          |A0    |yes    |affected |

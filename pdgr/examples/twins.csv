@@ -1,0 +1,12 @@
+Id |Name  |Sex   |DoB       |DoD       |Mother|Father|Proband|Twins|Type
+F0 |Adam  |male  |unknown   |unknown   |      |      |       |     |
+A0 |Sam   |male  |1950.01.03|unknown   |      |F0    |       | A1  |qzygotic
+A1 |John  |male  |1950.01.03|2005.04.12|      |F0    |       | A0  |qzygotic
+A2 |Jane  |female|1951.14.15|          |      |      |       |     |
+B1 |Jack  |male  |1975.05.06|          |A2    |A1    |       |B2   |monozygotic
+B2 |Mike  |male  |1975.05.06|          |A2    |A1    |       |B1   |monozygotic
+B3 |Pam   |female|1973.11.01|          |A2    |A1    |       |     |
+C1 |Jane  |female|1998.12.04|          |      |B1    |       |C2,C3|
+C2 |John  |male  |1998.12.04|          |      |B1    |       |C1,C3|
+C3 |George|male  |1998.12.04|          |      |B1    |  yes  |C1,C2|
+C4 |Ann   |female|2003.02.04|          |      |B1    |       |     |

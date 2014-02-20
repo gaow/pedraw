@@ -1,0 +1,12 @@
+Id |Name     |Sex   |DoB       |Father|Mother|Proband|SortOrder
+A0 |John     |male  |1915.06.15|      |      |       |
+B1 |Joan     |female|1940.03.02|A0    |      |       |
+B2 |Jane     |female|1942.07.07|A0    |      |       |
+B3 |Bill     |male  |1944.12.01|A0    |      |       |
+B4 |Peter    |male  |1941.05.01|      |      |       |
+C1 |Jack     |male  |1963.12.01|B4    |B2    |       |
+C2 |Sam      |male  |1961.08.26|      |B1    |       |
+C3 |Ann      |female|1965.11.12|      |B3    |       |
+C4 |Lucy     |female|1965.12.11|      |      |       | -3
+D1 |Mark     |male  |1989.06.21|C1    |C4    |yes    |
+D2 |Dina     |female|1991.12.02|C1    |C4    |       |

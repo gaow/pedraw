@@ -1,0 +1,12 @@
+Id |Name            |Sex   |DoB       | DoD      |Mother|Father|Proband|Condition |Comment
+P  |John Smith      |male  |1970/02/05|          |M1    |F1    | yes   | affected|Evaluated 2005/12/01
+M1 |Mary Smith      |female|1940/02/05|          |GM2   |GF2   |       | normal  |
+F1 |Bill Smith      |male  |1938/04/03|          |GM1   | GF1  |       |affected |
+GM1|Joan Smith      |female|1902/07/01|1975/12/13|      |      |       |asymptomatic
+GF1|Joseph Smith    |male  |unknown   |unknown   |      |      |       | normal
+GF2|Jim Brown       |male  |1905/11/01|          |      |      |       | normal  |
+GM2|Lisa Brown      |female|1910/03/03|          |      |      |       | normal  |
+S1 |Rebecca Smith   |female|1972/12/25|          |M1    |F1    |       | affected
+S2 |Alexander Smith |male  |1975/11/12|          |M1    |F1    |       | normal
+A1 |Ann Gold        |female|1941/09/02|          |GM1   | GF1  |       | obligatory|Aunt of the proband
+C1 | Jenny Smith    |female|1969/12/03|          |A1    |      |       | affected | Cousin of the proband

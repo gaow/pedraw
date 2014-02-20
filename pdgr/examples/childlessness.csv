@@ -1,0 +1,6 @@
+Id |Name       |Sex   |Mother|Father|Proband|Type      |Comment
+A0 |John       |male  |      |      |       |          |
+B1 |James      |male  |      |A0    |       |          |
+B1c|#childless |male  |      |B1    |       |infertile |anospermia
+B2 |Ann        |female|      |A0    |yes    |          |
+B2c|#childless |      |B2    |      |       |          |

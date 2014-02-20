@@ -1,0 +1,14 @@
+Id |Name     |Sex   |DoB       |Father|Mother|Proband
+A0 |John     |male  |1915.06.15|      |      |       
+B1 |Sam      |male  |1935.12.04|A0    |      |
+B2 |Ann      |female|1937.03.02|A0    |      |
+C1 |Paul     |male  |1952.10.03|B1    |      |
+F1 |Scott    |male  |1912.02.01|      |      |
+G1 |Simon    |male  |1934.09.17|F1    |      |
+G2 |Sarah    |female|1936.12.19|F1    |      |
+H1 |Lola     |female|1960.04.13|G2    |      |
+K1 |Jim      |male  |1962.11.05|G1    |B2    |
+M1 |Jane     |female|1917.02.13|      |      |
+P1 |Simon    |male  |1935.10.04|      | M1   |
+R1 |Pam      |female|1964.02.05|P1    |      |
+X1 |James    |male  |1988.07.12|K1    |R1    |yes

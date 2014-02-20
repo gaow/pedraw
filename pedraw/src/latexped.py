@@ -1,4 +1,4 @@
-# $File: latexped.py $
+## $File: latexped.py $
 # $LastChangedDate:  $
 # $Rev:  $
 # Copyright (c) 2014, Gao Wang <ewanggao@gmail.com>
