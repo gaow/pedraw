@@ -24,8 +24,8 @@ class Struct:
         self.__dict__.update(entries)
 
 class PedigreeDrawer:
-    def __init__(self, output):
-        self.output = output
+    def __init__(self, fout):
+        self.output = fout
         self.tmpfile = os.path.join(env.tmp_dir, output)
         self.input = self.tmpfile + '.txt'
         self.cfg = self.tmpfile + '.cfg'
@@ -45,11 +45,12 @@ class PedigreeDrawer:
                '$belowtextfont="\\{}"'.format(belowtextfont), '$abovetextfont="\\{}"'.format(abovetextfont),
                '$descarmA = {}'.format(descarmA), '$xdist = {}'.format(xdist), '$ydist = {}'.format(ydist), 
                '$maxW = {}'.format(maxW), '$maxH = {}'.format(maxH),
-               '$rotate = "{}"'.format("maybe" if auto_rotate else "no")]
+               '$rotate = "{}"'.format("maybe" if auto_rotate else "no"), "1;"]
         with open(self.cfg + ".cfg", 'w') as f:
-            f.write('\n'.join(res))       
+            f.write('\n'.join(res))
 
     def GenerateTex(self, genotypes = None, marker_names = None):
+        '''perl pedigree.pl -c config.cfg -o - data.txt'''
         error, out = subprocess.Popen(['perl', os.path.join(env.resource_dir, 'pedigree.pl'),
                                        '-c', self.cfg, '-o', '-', self.input],
                                        stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE,
@@ -57,7 +58,7 @@ class PedigreeDrawer:
         if sys.version_info.major == 3:
             out = out.decode(sys.getdefaultencoding())
         if genotypes is not None:
-            out += '\n' + self.__AppendGenotypes(genotypes, marker_names)
+            out += '\n' + self.__TrackGenotypes(genotypes, marker_names, out)
         with open(self.tex, 'w') as f:
            f.write('\n'.join(_TEXBGN_, out, _TEXEND_))
 
@@ -66,6 +67,6 @@ class PedigreeDrawer:
                          'preview':False, 'pdf':True, 'check_cite':False})
         LatexMaker(self.tex, opts).run()
 
-    def __AppendGenotypes(self, genotypes, marker_names):
+    def __TrackGenotypes(self, genotypes, marker_names, out):
         #FIXME
         return ''
