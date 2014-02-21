@@ -1,0 +1,53 @@
+#!/usr/bin/python
+from pedraw.pedInfo import readFiles, restoreStruct
+from pedraw.latexped import PedigreeDrawer
+from pedraw import env
+from argparse import ArgumentParser, SUPPRESS
+import sys, os
+
+def findLastGenID(data):
+    gen = -1
+    person = None
+    for k in data:
+        if data[k]['gen'] > gen:
+            person = k
+            gen = data[k]['gen']
+    return person
+
+if __name__ == '__main__':
+    parser = ArgumentParser(description = "Simple database utility", prog = os.path.split(sys.argv[0])[-1],
+        fromfile_prefix_chars = '@', epilog = '''Gao Wang, 2014''')
+    parser.add_argument('--version', action='version', version='%(prog)s version {0}'.format('0.0.1'))
+    parser.add_argument('project', help = 'Project name')
+    parser_input = parser.add_argument_group('Input options')
+    parser_input.add_argument('-p', '--ped', metavar = 'string', help = 'PED filename')
+    parser_input.add_argument('-m', '--map', metavar = 'string', help = 'MAP filename')
+    parser_input.add_argument('--variant_name', metavar = 'names',
+                              nargs = '+', help = 'list of variant names to track')
+    parser_input.add_argument('--variant_position', nargs = '+', help = ' ...')
+    parser_pdf = parser.add_argument_group('PDF options')
+    parser_pdf.add_argument('--belowtextfont', default = 'scriptsize', help = ' ... ')
+    parser_pdf.add_argument('--abovetextfont', default = 'small', help = ' ... ')
+    parser_pdf.add_argument('--descarmA', type = float, default = 0.8, help = ' ... ')
+    parser_pdf.add_argument('--xdist', type = float, default = 2, help = ' ... ')
+    parser_pdf.add_argument('--ydist', type = float, default = 2, help = ' ... ')
+    parser_pdf.add_argument('--maxW', type = float, default = 15, help = ' ... ')
+    parser_pdf.add_argument('--maxH', type = float, default = 19, help = ' ... ')
+    #
+    args, unknown_args = parser.parse_known_args()
+    # Load data
+    pedInfo = readFiles().ped(args.ped)
+    familyInfo = {}
+    for ID, famDict in pedInfo.items():
+        familyInfo[ID] = restoreStruct(ID, famDict).famInfo
+    # Plot
+    for k in familyInfo:
+        pd = PedigreeDrawer(args.project, k)
+        pd.WriteInput(familyInfo[k])
+        pd.WriteConfig(args.belowtextfont, args.abovetextfont,
+                    args.descarmA, args.xdist, args.ydist, args.maxW, args.maxH)
+        start = findLastGenID(familyInfo[k])
+        env.log("Use individual '{}' as the pseudo-proband for family [{}]".format(start, k))
+        pd.GenerateTex(start)
+        env.log("Generating pedigree plot for family [{}] ...".format(k))
+        pd.GeneratePDF()

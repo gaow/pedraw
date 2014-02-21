@@ -283,7 +283,7 @@ class readFiles():
         '''
         try:
             if trait.lower() in ('na', 'null', 'none', 'nan', 'missing', 'n/a'):
-                return ('nan')
+                return '0'
             else:
                 return trait
         except:
@@ -322,7 +322,8 @@ class readFiles():
     
     
 if __name__ == '__main__':
-    pedFile = '/Users/biao/Desktop/test.ped'
+    import sys
+    pedFile = sys.argv[1]
     pedInfo = readFiles().ped(pedFile)
     familyIDs = pedInfo.keys()
     familyDicts = pedInfo.values()
@@ -330,6 +331,7 @@ if __name__ == '__main__':
     familyInfo = {}
     for ID, famDict in zip(familyIDs, familyDicts):
         familyInfo[ID] = restoreStruct(ID, famDict).famInfo
+    print familyInfo
     
     
     

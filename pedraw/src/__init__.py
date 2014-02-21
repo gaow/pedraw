@@ -3,7 +3,7 @@ from distutils.dir_util import mkpath, remove_tree
 
 NAME = 'pedraw'
 VERSION = '0.0.1'
-LOCAL = '~/{}'.format(NAME)
+LOCAL = os.path.expanduser('~/.{}'.format(NAME))
 
 class Environment:
     def __init__(self):
@@ -13,7 +13,7 @@ class Environment:
         self.prog = NAME
         self.version = VERSION 
         # Runtime support
-        self.resource_dir = os.path.expanduser(LOCAL)
+        self.resource_dir = LOCAL
         self.tmp_dir = self.__mktmpdir()
         self.debug = False
 
