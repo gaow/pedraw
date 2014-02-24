@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{pst-pdgr}
+\psset{descarmA=1}
+
+\begin{document}
+\rotatebox{90}{%
+\psset{descarmA=0.8}%
+\begin{pspicture}(-4,-4)(15,4)
+\rput(9, 2){\pnode{F1P701001_m_F1P701002}}
+\rput(7, 2){\pstPerson[male, affected, belowtext={\small I:1}, abovetext={\scriptsize 1:701001}]{F1P701001}}
+\rput(11, 2){\pstPerson[female, normal, belowtext={\small I:2}, abovetext={\scriptsize 1:701002}]{F1P701002}}
+\rput(10, 0){\pstPerson[male, affected, belowtext={\small II:4}, abovetext={\scriptsize 1:701008}]{F1P701008}}
+\rput(8, 0){\pstPerson[female, affected, belowtext={\small II:3}, abovetext={\scriptsize 1:701003}]{F1P701003}}
+\rput(-2, 0){\pstPerson[male, normal, belowtext={\small II:1}, abovetext={\scriptsize 1:701006}]{F1P701006}}
+\rput(6, 0){\pstPerson[female, affected, belowtext={\small II:2}, abovetext={\scriptsize 1:701005}]{F1P701005}}
+\rput(0, 0){\pnode{F1P701006_m_F1P701005}}
+\rput(12, 0){\pstPerson[male, affected, belowtext={\small II:5}, abovetext={\scriptsize 1:701007}]{F1P701007}}
+\rput(5, -2){\pstPerson[female, normal, belowtext={\small III:4}, abovetext={\scriptsize 1:701014}]{F1P701014}}
+\rput(11, -2){\pstPerson[male, normal, belowtext={\small III:7}, abovetext={\scriptsize 1:701013}]{F1P701013}}
+\rput(-1, -2){\pstPerson[male, affected, belowtext={\small III:1}, abovetext={\scriptsize 1:701016}]{F1P701016}}
+\rput(3, -2){\pstPerson[male, affected, belowtext={\small III:3}, abovetext={\scriptsize 1:701010}]{F1P701010}}
+\rput(7, -2){\pstPerson[female, normal, belowtext={\small III:5}, abovetext={\scriptsize 1:701009}]{F1P701009}}
+\rput(1, -2){\pstPerson[female, affected, belowtext={\small III:2}, abovetext={\scriptsize 1:701015}]{F1P701015}}
+\rput(9, -2){\pstPerson[female, normal, belowtext={\small III:6}, abovetext={\scriptsize 1:701012}]{F1P701012}}
+\rput(13, -2){\pstPerson[male, normal, belowtext={\small III:8}, abovetext={\scriptsize 1:701011}]{F1P701011}}
+\pstDescent{F1P701001_m_F1P701002}{F1P701005}
+\pstDescent{F1P701001_m_F1P701002}{F1P701003}
+\pstDescent{F1P701001_m_F1P701002}{F1P701008}
+\pstDescent{F1P701001_m_F1P701002}{F1P701007}
+\ncline[]{F1P701001_m_F1P701002}{F1P701002}
+\ncline[]{F1P701001_m_F1P701002}{F1P701001}
+\pstDescent{F1P701003}{F1P701010}
+\pstDescent{F1P701003}{F1P701014}
+\pstDescent{F1P701003}{F1P701009}
+\pstDescent{F1P701003}{F1P701012}
+\pstDescent{F1P701003}{F1P701013}
+\pstDescent{F1P701003}{F1P701011}
+\pstDescent{F1P701006_m_F1P701005}{F1P701016}
+\pstDescent{F1P701006_m_F1P701005}{F1P701015}
+\ncline[]{F1P701006_m_F1P701005}{F1P701005}
+\ncline[]{F1P701006_m_F1P701005}{F1P701006}
+\end{pspicture}%
+}
+
+\begin{description}
+\item[I:1] 1:701001.
+\item[I:2] 1:701002.
+\item[II:1] 1:701006.
+\item[II:2] 1:701005.
+\item[II:3] 1:701003.
+\item[II:4] 1:701008.
+\item[II:5] 1:701007.
+\item[III:1] 1:701016.
+\item[III:2] 1:701015.
+\item[III:3] 1:701010.
+\item[III:4] 1:701014.
+\item[III:5] 1:701009.
+\item[III:6] 1:701012.
+\item[III:7] 1:701013.
+\item[III:8] 1:701011.
+\end{description}
+\end{document}

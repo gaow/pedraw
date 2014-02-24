@@ -1,30 +1,37 @@
 #!/usr/bin/python
 from pedraw.pedInfo import readFiles, restoreStruct
-from pedraw.latexped import PedigreeDrawer
+from pedraw.prepedraw import PedigreeDrawer
 from pedraw import env
 from argparse import ArgumentParser, SUPPRESS
 import sys, os
 
-def findLastGenID(data):
+#the pdgr program requires us must provide a 'proband'. The proband should either be provided in the csv file, or be provided in the command line. We should say: perl ...... -s F{}P{} ....
+#what do they mean by saying proband? Here the 'proband' does not has its usual meaning, but means someone shares genes with everyone else in a family. So we know that in a pedigree structure, a proband is someone lies on the last layer. We cannot let user tell us who is proband. Because if the user knows it, he already knows the structure of the pedigree....
+#So we must figure out who can be used as such 'proband'. In the class pedInfo.py written by Biao, the layer on which each person lies has already be generated. There is a dictionary, keys are each person's family ID, values are dictionaries containing each one's information. So we go through such dictionary, check each person, if his/her generation number is one of the largest, we will take him/her as 'proband'
+def find_pseudo_proband(data):
     gen = -1
     person = None
-    for k in data:
+    for k in data:  #this k is personal ID
         if data[k]['gen'] > gen:
             person = k
             gen = data[k]['gen']
-    return person
+    return person  #at last we get a personal ID
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description = "Simple database utility", prog = os.path.split(sys.argv[0])[-1],
-        fromfile_prefix_chars = '@', epilog = '''Gao Wang, 2014''')
+    parser = ArgumentParser(description = "A pedigree drawer", prog = os.path.split(sys.argv[0])[-1],
+        fromfile_prefix_chars = '@', epilog = '''''')
     parser.add_argument('--version', action='version', version='%(prog)s version {0}'.format('0.0.1'))
     parser.add_argument('project', help = 'Project name')
+
+    #below, the user tells us what he wants to draw
     parser_input = parser.add_argument_group('Input options')
     parser_input.add_argument('-p', '--ped', metavar = 'string', help = 'PED filename')
     parser_input.add_argument('-m', '--map', metavar = 'string', help = 'MAP filename')
     parser_input.add_argument('--variant_name', metavar = 'names',
                               nargs = '+', help = 'list of variant names to track')
     parser_input.add_argument('--variant_position', nargs = '+', help = ' ...')
+
+    #below, the user tells us how he wants his picture looks like
     parser_pdf = parser.add_argument_group('PDF options')
     parser_pdf.add_argument('--belowtextfont', default = 'scriptsize', help = ' ... ')
     parser_pdf.add_argument('--abovetextfont', default = 'small', help = ' ... ')
@@ -33,21 +40,27 @@ if __name__ == '__main__':
     parser_pdf.add_argument('--ydist', type = float, default = 2, help = ' ... ')
     parser_pdf.add_argument('--maxW', type = float, default = 15, help = ' ... ')
     parser_pdf.add_argument('--maxH', type = float, default = 19, help = ' ... ')
-    #
+    
+    #the args are thoes arguments user specify. Put all other wrong arguments we don't support into unknown_args
     args, unknown_args = parser.parse_known_args()
-    # Load data
+    #load data using the pedInfo.py class written by Biao
     pedInfo = readFiles().ped(args.ped)
     familyInfo = {}
-    for ID, famDict in pedInfo.items():
-        familyInfo[ID] = restoreStruct(ID, famDict).famInfo
-    # Plot
-    for k in familyInfo:
+    for familyID, familyDict in pedInfo.items():
+        familyInfo[familyID] = restoreStruct(familyID, familyDict).famInfo
+    #we now get a dictionary familyInfo. Its keys are family IDs, its values are dictionaries, each containing all the information in that family. While in that dictionary, the keys are personal IDs, the values are dictionaries containing all the information of that person
+    #draw picture
+    for k in familyInfo:  #for each family
         pd = PedigreeDrawer(args.project, k)
-        pd.WriteInput(familyInfo[k])
-        pd.WriteConfig(args.belowtextfont, args.abovetextfont,
-                    args.descarmA, args.xdist, args.ydist, args.maxW, args.maxH)
-        start = findLastGenID(familyInfo[k])
-        env.log("Use individual '{}' as the pseudo-proband for family [{}]".format(start, k))
-        pd.GenerateTex(start)
+        #write a csv file:
+        pd.WriteInput(familyInfo[k])  #a dictionary: {person:info, person:info, person:info}
+        #write a configuration file:
+        pd.WriteConfig(args.belowtextfont, args.abovetextfont, args.descarmA, args.xdist, args.ydist, args.maxW, args.maxH)
+        #designate a pseudo proband
+        pseudo_proband = find_pseudo_proband(familyInfo[k])
+        env.log("Use individual '{}' as the pseudo-proband for family [{}]".format(pseudo_proband, k))
+        #generate Latex files
+        pd.GenerateTex(pseudo_proband)
         env.log("Generating pedigree plot for family [{}] ...".format(k))
+        #generatea pdf files
         pd.GeneratePDF()

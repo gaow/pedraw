@@ -1,10 +1,4 @@
-# $File: setup.py $
-# $LastChangedDate:  $
-# $Rev:  $
-# Copyright (c) 2014, Gao Wang <ewanggao@gmail.com>
-# GNU General Public License (http://www.gnu.org/licenses/gpl.html)
-
-# python setup.py install
+# python setup.py install --prefix=/home/usr
 import sys, imp, os
 from distutils.core import setup
 try:
@@ -14,6 +8,7 @@ except ImportError:
 
 from src import VERSION, NAME, LOCAL
 
+#the files needed to run pdgr program
 resources = ['pedigree.pl',
 'Pedigree.pm',
 'Pedigree/Node.pm',
@@ -24,8 +19,8 @@ resources = ['pedigree.pl',
 'Pedigree/MarriageNode.pm',
 'Pedigree/PersonNode.pm',
 'Pedigree/TwinsNode.pm',
-'Pedigree/ChildlessNode.pm',
-]
+'Pedigree/ChildlessNode.pm']
+
 for item in resources:
     if not os.path.isfile(os.path.join(LOCAL, item)):
         sys.exit('Cannot find file {}'.format(os.path.join(LOCAL, item)))
